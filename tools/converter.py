@@ -37,6 +37,6 @@ escaped_characters = {
 for op in thing.split('\n'):
     sym, token = op.split()
     if sym in escaped_characters:
-        print(f"\\{sym} return {token};")
+        print(f"\"{sym}\" return {token};")
     else:
         print(f"{sym} {{ return {token}; }}")
