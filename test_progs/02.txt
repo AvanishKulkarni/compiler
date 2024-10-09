@@ -1,0 +1,6 @@
+program monkey
+int x = 3.6;
+if (x < 5) && (x > 2) {
+    print("x is between 2.0 and 5.0");
+}
+print(20);
