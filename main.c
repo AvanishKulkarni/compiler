@@ -11,11 +11,10 @@ int main(int argc, char **argv)
         printf("could not open program.c!\n");
         return 1;
     }
-    while (1)
+    token_t t;
+    while ((t = yylex()) != DONE)
     {
-        token_t t = yylex();
-        if (t == TOKEN_EOF)
-            break;
         printf("token: %d text: %s\n", t, yytext);
     }
+    printf("token: %d text: %s\n", t, yytext);
 }
