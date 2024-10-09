@@ -8,17 +8,11 @@ int main(int argc, char **argv)
 
     if (argc == 1)
     {
-        perror("Missing filename command-line argument!");
+        printf("Missing filename command-line argument!\n");
         return 1;
     }
 
-    file = fopen(argv[1], 'r');
-
-    if (file == NULL)
-    {
-        perror("Error opening file!");
-        return 1;
-    }
+    file = fopen(argv[1], "r");
 
     while ((ch = fgetc(file)) != EOF)
     {
