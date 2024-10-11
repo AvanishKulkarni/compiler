@@ -45,3 +45,5 @@ typedef enum
     ERR,
     DONE,
 } token_t;
+
+// TODO implement token struct
