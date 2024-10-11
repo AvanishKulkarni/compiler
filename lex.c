@@ -19,7 +19,16 @@ typedef enum
 
 } lexState;
 
-token_t lex()
+token createToken(token_t kind, char *lexeme, int linenum)
+{
+    token ret;
+    ret.kind = kind;
+    ret.lexeme = lexeme;
+    ret.line = linenum;
+    return ret;
+}
+
+token lex()
 {
     char ch;
     lexState state = START;
@@ -39,7 +48,7 @@ token_t lex()
             }
             if (ch == '<')
             {
-                return LTHAN;
+                return createToken(LTHAN, lexeme, line);
             }
             break;
 

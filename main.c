@@ -11,7 +11,7 @@ int main(int argc, char **argv)
         printf("could not open program.c!\n");
         return 1;
     }
-    token_t t;
+    token t;
     while ((t = lex()) != DONE)
     {
         printf("token: %d text: %s\n", t, lexeme);

@@ -47,3 +47,9 @@ typedef enum
 } token_t;
 
 // TODO implement token struct
+typedef struct
+{
+    token_t kind;
+    char *lexeme;
+    int line;
+} token;
