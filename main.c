@@ -1,8 +1,7 @@
 #include "token.h"
 #include <stdio.h>
 extern FILE *input;
-extern token_t lex();
-extern char *lexeme;
+extern token lex();
 int main(int argc, char **argv)
 {
     input = fopen(argv[1], "r");
@@ -12,9 +11,9 @@ int main(int argc, char **argv)
         return 1;
     }
     token t;
-    while ((t = lex()) != DONE)
+    while ((t = lex()).kind != DONE)
     {
-        printf("token: %d text: %s\n", t, lexeme);
+        printf("token: %d text: %s\n", t.kind, t.lexeme);
     }
-    printf("token: %d text: %s\n", t, lexeme);
+    printf("token: %d text: %s\n", t.kind, t.lexeme);
 }

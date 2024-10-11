@@ -73,6 +73,8 @@ token lex()
         case IN_ASSOP:
 
             break;
+        default:
+            return createToken(DONE, lexeme, line);
         }
     }
 }
