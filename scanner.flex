@@ -21,6 +21,7 @@ false { return FALSE; }
 \"[^\"]*\" { return SCONST; }
 "//".* { /* skip single line comment */ }
 "/*".*"*/" { /* skip multi line comment */ }
+
 "+" { return PLUS; }
 "-" { return MINUS; }
 "*" { return MULT; }
@@ -35,6 +36,7 @@ false { return FALSE; }
 "%=" { return REMASSOP; }
 "==" { return EQ; }
 "!=" { return NEQ; }
+
 "&&" { return AND; }
 "||" { return OR; }
 
