@@ -3,6 +3,8 @@
 %}
 %%
 (" "|\t|\n) { /* skip whitespace */ }
+
+[a-zA-Z_][a-zA-Z0-9_]* { return IDENT; }
 program { return PROGRAM; }
 string { return STRING; }
 else { return ELSE; }
@@ -14,13 +16,15 @@ print { return PRINT; }
 bool { return BOOL; }
 true { return TRUE; }
 false { return FALSE; }
-<<EOF>> { return DONE; }
-[a-zA-Z_][a-zA-Z0-9_]* { return IDENT; }
+
 [+-]?[0-9]*\.[0-9]+ { return RCONST; }
 [+-]?[0-9]+ { return ICONST; }
 \"[^\"]*\" { return SCONST; }
+
 "//".* { /* skip single line comment */ }
 "/*".*"*/" { /* skip multi line comment */ }
+
+<<EOF>> { return DONE; }
 
 "+" { return PLUS; }
 "-" { return MINUS; }
@@ -29,6 +33,7 @@ false { return FALSE; }
 "%" { return REM; }
 "=" { return ASSOP; }
 "!" { return NOT; }
+
 "+=" { return ADDASSOP; }
 "-=" { return SUBASSOP; }
 "*=" { return MULASSOP; }
