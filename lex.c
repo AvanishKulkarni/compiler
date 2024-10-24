@@ -25,6 +25,15 @@ typedef enum
     POS_NEQ,
     IN_AND,
     IN_OR,
+    POS_NUM_SIGN,
+    NEG_NUM_SIGN,
+    NUM_WHOLE,
+    POS_ASSOP,
+    NUM_ICONST,
+    NUM_DEC,
+    SYM_DOT,
+    NUM_FRAC,
+    NUM_RCONST
 
 } lexState;
 
@@ -113,17 +122,17 @@ token lex()
             else if (ch == '.')
             {
                 appendChar(lexeme, ch);
-                return createToken(RBRACE, lexeme, line);
+                state = NUM_DEC;
             }
             else if (ch == '+')
             {
                 appendChar(lexeme, ch);
-                state = POS_ADD_ASSOP;
+                state = POS_NUM_SIGN;
             }
             else if (ch == '-')
             {
                 appendChar(lexeme, ch);
-                state = POS_SUB_ASSOP;
+                state = NEG_NUM_SIGN;
             }
             else if (ch == '*')
             {
@@ -165,16 +174,31 @@ token lex()
                 appendChar(lexeme, ch);
                 state = IN_WORD;
             }
+            else if (isdigit(ch)) 
+            {
+                appendChar(lexeme, ch);
+                state = NUM_WHOLE;
+            }
             break;
 
         case ERROR:
             return createToken(ERR, lexeme, line);
             break;
-        case POS_ADD_ASSOP:
+        case POS_NUM_SIGN:
             if (ch == '=')
             {
                 appendChar(lexeme, ch);
                 return createToken(ADDASSOP, lexeme, line);
+            }
+            else if (isdigit(ch))
+            {
+                appendChar(lexeme, ch);
+                state = NUM_WHOLE;
+            }
+            else if (ch == '.')
+            {
+                appendChar(ch, lexeme);
+                state = NUM_DEC;
             }
             else
             {
@@ -182,16 +206,67 @@ token lex()
                 return createToken(PLUS, lexeme, line);
             }
             break;
-        case POS_SUB_ASSOP:
+        case NEG_NUM_SIGN:
             if (ch == '=')
             {
                 appendChar(lexeme, ch);
                 return createToken(SUBASSOP, lexeme, line);
             }
+            else if (isdigit(ch))
+            {
+                appendChar(lexeme, ch);
+                state = NUM_WHOLE;
+            }
+            else if (ch == '.')
+            {
+                appendChar(ch, lexeme);
+                state = NUM_DEC;
+            }
             else
             {
                 ungetc(ch, input);
                 return createToken(MINUS, lexeme, line);
+            }
+            break;
+        case NUM_WHOLE:
+            if (isdigit(ch))
+            {
+                appendChar(ch, lexeme);
+                state = NUM_WHOLE;
+            }
+            else if (ch == '.')
+            {
+                appendChar(ch, lexeme);
+                state = NUM_DEC;
+            }
+            else
+            {
+                ungetc(ch, input);
+                return createToken(ICONST, lexeme, line);
+            }
+            break;
+        case NUM_DEC:
+            if (isdigit(ch))
+            {
+                appendChar(ch, lexeme);
+                state = NUM_FRAC;
+            }
+            else
+            {
+                ungetc(ch, input);
+                return createToken(DOT, lexeme, line);
+            }
+            break;
+        case NUM_FRAC:
+            if (isdigit(ch))
+            {
+                appendChar(ch, lexeme);
+                state = NUM_FRAC;
+            }
+            else 
+            {
+                ungetc(ch, input);
+                return createToken(RCONST, lexeme, line);
             }
             break;
         case POS_MUL_ASSOP:
