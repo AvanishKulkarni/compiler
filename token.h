@@ -46,7 +46,6 @@ typedef enum
     DONE,
 } token_t;
 
-// TODO implement token struct
 typedef struct
 {
     token_t kind;
