@@ -197,7 +197,7 @@ token lex()
             }
             else if (ch == '.')
             {
-                appendChar(ch, lexeme);
+                appendChar(lexeme, ch);
                 state = NUM_DEC;
             }
             else
@@ -219,7 +219,7 @@ token lex()
             }
             else if (ch == '.')
             {
-                appendChar(ch, lexeme);
+                appendChar(lexeme, ch);
                 state = NUM_DEC;
             }
             else
@@ -231,12 +231,12 @@ token lex()
         case NUM_WHOLE:
             if (isdigit(ch))
             {
-                appendChar(ch, lexeme);
+                appendChar(lexeme, ch);
                 state = NUM_WHOLE;
             }
             else if (ch == '.')
             {
-                appendChar(ch, lexeme);
+                appendChar(lexeme, ch);
                 state = NUM_DEC;
             }
             else
@@ -248,7 +248,7 @@ token lex()
         case NUM_DEC:
             if (isdigit(ch))
             {
-                appendChar(ch, lexeme);
+                appendChar(lexeme, ch);
                 state = NUM_FRAC;
             }
             else
@@ -260,7 +260,7 @@ token lex()
         case NUM_FRAC:
             if (isdigit(ch))
             {
-                appendChar(ch, lexeme);
+                appendChar(lexeme, ch);
                 state = NUM_FRAC;
             }
             else 
